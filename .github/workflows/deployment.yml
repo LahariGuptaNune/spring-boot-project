@@ -13,6 +13,9 @@ jobs:
         uses: actions/checkout@v2
       - name: Build spring boot project with Maven
         run: mvn clean install -DskipTests
+      - name: Create directory on Desktop
+        run: mkdir $HOME\Desktop\myapp
       - name: Copy JAR to Desktop
         run: |
-          cp target/firstproject-0.0.1-SNAPSHOT.jar C:\Users\Admin\Desktop\myapp
+          copy target\firstproject-0.0.1-SNAPSHOT.jar $HOME\Desktop\myapp\
+      
