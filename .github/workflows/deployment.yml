@@ -11,9 +11,5 @@ jobs:
     steps:
       - name: Checkout spring boot project repo
         uses: actions/checkout@v2
-      - name: Set up Java
-        uses: actions/setup-java@v2
-        with:
-          java-version: '1.8'
       - name: Build spring boot project with Maven
         run: mvn clean install -DskipTests
