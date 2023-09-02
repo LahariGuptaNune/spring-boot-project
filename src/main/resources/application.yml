@@ -1,2 +1,4 @@
 server:
   port: 9505
+
+my-secret-property: ${MY_SECRET}
