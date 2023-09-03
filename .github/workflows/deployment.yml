@@ -16,25 +16,6 @@ jobs:
       - name: Set secret as environment variable
         run: echo "MY_SECRET=${{ secrets.YOUR_SECRET_NAME }}"
       - name: Build spring boot project with Maven
-        run: mvn clean install -DskipTests
-      name: Build job
-on:
-  push:
-    branches: main
-jobs:
-  build:
-    runs-on: windows-latest
-    env:
-      MY_SECRET: ${{ secrets.YOUR_SECRET_NAME }}
-    defaults:
-      run:
-        shell: cmd
-    steps:
-      - name: Checkout spring boot project repo
-        uses: actions/checkout@v2
-      - name: Set secret as environment variable
-        run: echo "MY_SECRET=${{ secrets.YOUR_SECRET_NAME }}"
-      - name: Build spring boot project with Maven
         run: |
             mvn clean install -DskipTests
             mkdir artifacts && cp target/*.jar artifacts
