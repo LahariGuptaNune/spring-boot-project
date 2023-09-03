@@ -1,30 +1,49 @@
-name: Build job
+name: Build and Deploy
+
 on:
   push:
-    branches: main
+    branches:
+      - main
+
 jobs:
   build:
     runs-on: windows-latest
+
     env:
       MY_SECRET: ${{ secrets.YOUR_SECRET_NAME }}
+
     defaults:
       run:
         shell: cmd
+
     steps:
       - name: Checkout spring boot project repo
         uses: actions/checkout@v2
+
       - name: Set secret as environment variable
         run: echo "MY_SECRET=${{ secrets.YOUR_SECRET_NAME }}"
+
       - name: Build spring boot project with Maven
         run: |
-            mvn clean install -DskipTests
-            mkdir artifacts && cp target/*.jar artifacts
-            cd artifacts && ls
+          mvn clean install -DskipTests
+
+      - name: List files in target directory
+        run: |
+          dir target
+
+      - name: Create artifacts directory
+        run: mkdir artifacts
+
+      - name: Copy JAR files to artifacts directory
+        run: |
+          copy target\*.jar artifacts\
+
+      - name: List files in artifacts directory
+        run: |
+          dir artifacts
+
       - name: Save artifact
         uses: actions/upload-artifact@v2
         with:
           name: github-actions-artifact
           path: artifacts
-      
-
-      

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class FirstController {
 
-    @Value("${my-secret-property")
+    @Value("${my-secret-property}")
     private String secretKeyValue;
 
     @GetMapping(value = "/getMessage")
