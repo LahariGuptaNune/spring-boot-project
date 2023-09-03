@@ -20,23 +20,17 @@ jobs:
       - name: Checkout spring boot project repo
         uses: actions/checkout@v2
 
-      - name: Set secret as environment variable
-        run: echo "MY_SECRET=${{ secrets.YOUR_SECRET_NAME }}"
+      - name: Create secrets.properties
+        run: echo "my-secret-property=${{ secrets.YOUR_SECRET_NAME }}" > src/main/resources/secrets.properties
 
       - name: Build spring boot project with Maven
         run: |
           mvn clean install -DskipTests
+          mkdir artifacts && cp target/*.jar artifacts
 
       - name: List files in target directory
         run: |
           dir target
-
-      - name: Create artifacts directory
-        run: mkdir artifacts
-
-      - name: Copy JAR files to artifacts directory
-        run: |
-          copy target\*.jar artifacts\
 
       - name: List files in artifacts directory
         run: |
@@ -47,7 +41,3 @@ jobs:
         with:
           name: github-actions-artifact
           path: artifacts
-
-      - name: Debug Environment Variables
-        run: |
-          echo "MY_SECRET: $MY_SECRET"
