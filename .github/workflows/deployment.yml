@@ -17,12 +17,33 @@ jobs:
         run: echo "MY_SECRET=${{ secrets.YOUR_SECRET_NAME }}"
       - name: Build spring boot project with Maven
         run: mvn clean install -DskipTests
-      - name: Create directory on Desktop
-        run: mkdir C:\Users\Admin\Desktop\myapp
-      - name: Copy JAR to Desktop
+      name: Build job
+on:
+  push:
+    branches: main
+jobs:
+  build:
+    runs-on: windows-latest
+    env:
+      MY_SECRET: ${{ secrets.YOUR_SECRET_NAME }}
+    defaults:
+      run:
+        shell: cmd
+    steps:
+      - name: Checkout spring boot project repo
+        uses: actions/checkout@v2
+      - name: Set secret as environment variable
+        run: echo "MY_SECRET=${{ secrets.YOUR_SECRET_NAME }}"
+      - name: Build spring boot project with Maven
         run: |
-          copy target\firstproject-0.0.1-SNAPSHOT.jar C:\Users\Admin\Desktop\myapp\
-      - name: List Desktop contents
-        run: |
-          dir C:\Users\Admin\Desktop\myapp
+            mvn clean install -DskipTests
+            mkdir artifacts && cp target/*.jar artifacts
+            cd artifacts && ls
+      - name: Save artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: github-actions-artifact
+          path: artifacts
+      
+
       
