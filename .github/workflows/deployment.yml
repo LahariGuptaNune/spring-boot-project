@@ -47,3 +47,7 @@ jobs:
         with:
           name: github-actions-artifact
           path: artifacts
+
+      - name: Debug Environment Variables
+        run: |
+          echo "MY_SECRET: $MY_SECRET"
