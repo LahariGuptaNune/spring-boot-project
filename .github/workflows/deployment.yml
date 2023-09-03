@@ -32,10 +32,6 @@ jobs:
         run: |
           dir target
 
-      - name: List files in artifacts directory
-        run: |
-          dir artifacts
-
       - name: Save artifact
         uses: actions/upload-artifact@v2
         with:
