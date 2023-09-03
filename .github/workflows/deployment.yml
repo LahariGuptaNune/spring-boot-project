@@ -26,11 +26,12 @@ jobs:
       - name: Build spring boot project with Maven
         run: |
           mvn clean install -DskipTests
-          mkdir artifacts && cp target/*.jar artifacts
+          mkdir artifacts
+          cp target/*.jar artifacts/  # Copy JAR files to the 'artifacts' directory
 
-      - name: List files in target directory
+      - name: List files in artifacts directory
         run: |
-          dir target
+          dir artifacts
 
       - name: Save artifact
         uses: actions/upload-artifact@v2
