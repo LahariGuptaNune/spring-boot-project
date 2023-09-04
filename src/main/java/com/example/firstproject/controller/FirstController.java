@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/first")
 @Slf4j
-@PropertySource("classpath:secret.properties")
 public class FirstController {
 
     @Value("${my-secret-property}")
