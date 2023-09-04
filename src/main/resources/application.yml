@@ -1,4 +1,4 @@
 server:
   port: 9505
 
-my-secret-property: ${my-secret-property}
+my-secret-property: ${my-secret-property-propValue}
